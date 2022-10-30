@@ -19,6 +19,17 @@ class Post extends Model
         return $this->hasMany(Rate::class);
     }
 
+    public function avg()
+    {
+        return $this->hasOne(RateAvg::class);
+    }
+
+
+    public function comment()
+    {
+        return $this->hasMany(comment::class);
+    }
+
 
 
     protected $fillable = [

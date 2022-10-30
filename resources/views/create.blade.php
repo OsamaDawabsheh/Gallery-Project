@@ -2,10 +2,12 @@
 
 
 
+    // create post page
+
 @if($errors->any())
 <div class="p-5 pb-0 m-auto text-center col-12 col-md-8 col-lg-6 col-xl-4">
         <div class="bg-danger text-light fw-bold rounded-t px-4 py-2">يرجى تصحيح الاخطاء الاتية ... </div>
-        <ul class="rounded-b bg-red-100 px-4 py-2" style="background: rgba(200,200,200);">
+        <ul class="rounded-b bg-red-100 px-4 py-2 ">
             @foreach ($errors->all() as $error )
                 <li>
                     {{ $error }}
@@ -15,7 +17,7 @@
     </div>
         @endif
 
-    <div class="container p-4 my-4 create" >
+    <div class="container p-4 my-4 " >
         <div class="row d-flex justify-content-center align-items-center ">
             <div class="col-12 col-md-8 col-lg-6 col-xl-4 bg-dark text-light py-5 px-3 border border-warning border-5 ">
 
@@ -36,7 +38,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label d-block" for="description">وصف الصورة : </label>
-                <textarea class="rounded-2" name="description" id="description" rows="4" cols="49" style="resize: none" ></textarea>
+                <textarea class="rounded-2 " name="description" id="description" rows="4"  ></textarea>
             </div>
             <div class="mb-4">
                 <label class="form-label " for="position"> مكان الصورة : </label>

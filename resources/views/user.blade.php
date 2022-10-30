@@ -1,5 +1,6 @@
 @include('app.header')
 
+    {{-- show user page with his posts  --}}
 
 <section class="py-5 bg-info">
     <div class="container px-5 px-sm-4 px-lg-2 mt-5">
@@ -8,10 +9,10 @@
 @foreach ( $posts as $post )
 <div class="col mb-5">
             <div class="card h-100 border border-0">
-                <!-- Product image-->
                 <img class="card-img-top" src="{{ asset($post->image_path) }}" height="200"   alt="..." />
+                @if (session()->has('user') && session('user')['id'] == $post->user_id)
                 <p class="position-absolute bg-danger text-light py-2 px-3 rounded-pill m-2">{{ $post->state }}</p>
-                <!-- Product details-->
+                @endif
                 <div class="card-body p-4">
                     <div class="text-center">
                         <h5 class="card-title fw-bold">{{ $post->title }}</h5>

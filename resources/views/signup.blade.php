@@ -1,11 +1,12 @@
 
     @include('app.header')
 
+        {{-- show signup page  --}}
 
     @if($errors->any())
     <div class="p-5 pb-0 m-auto text-center col-12 col-md-8 col-lg-6 col-xl-4">
             <div class="bg-danger text-light fw-bold rounded-t px-4 py-2">يرجى تصحيح الاخطاء الاتية ... </div>
-            <ul class="rounded-b bg-red-100 px-4 py-2" style="background: rgba(200,200,200);">
+            <ul class="rounded-b bg-red-100 px-4 py-2">
                 @foreach ($errors->all() as $error )
                     <li>
                         {{ $error }}
@@ -30,7 +31,7 @@
 
                 <div>
                     <h1 class="text-center mb-4 ">التسجيل</h1>
-                    <img class="rounded-circle mb-3 m-auto d-block " width="100" src="{{ asset('assets/images/login.png') }}" alt="">
+                    <img class="rounded-circle mb-3 m-auto d-block " width="100" src="{{ asset('assets/images/website/userLogo.png') }}" alt="">
                 </div>
                 <div>
                     <label class="form-label" for="name">اسم المستخدم :</label>
@@ -42,7 +43,7 @@
                 </div>
                 <div>
                     <label class="form-label mt-3" for="password">كلمة المرور : </label>
-                    <input class="form-control" type="password" name="password">
+                    <input class="form-control" type="password" name="password" title="يجب ان تكون اطول من 8 وان تحتوي على احرف كبيرة وصغيرة وارقام ">
                 </div>
                 <div>
                     <label class="form-label mt-3" for="password_repeat">تأكيد كلمة المرور :  </label>
@@ -51,7 +52,7 @@
                     <button class="btn mt-5 btn-danger w-100 " type="submit" >تسجيل</button>
             </form>
             <div class="mt-5 d-flex">
-                <p class="mx-auto d-flex justify-content-center align-items-center">هل لديك حساب بالفعل ؟ <a href="{{ route('gallery.login') }}" class="text-light bg-success p-2 rounded-pill m-auto mx-2" style="text-decoration: none">تسجيل الدخول</a></p>
+                <p class="mx-auto d-flex justify-content-center align-items-center">هل لديك حساب بالفعل ؟ <a href="{{ route('gallery.login') }}" class="text-light bg-success p-2 rounded-pill m-auto mx-2 signupToLogin">تسجيل الدخول</a></p>
             </div>
         </div>
         </div>

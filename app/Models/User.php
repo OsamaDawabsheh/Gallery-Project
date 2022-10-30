@@ -18,11 +18,6 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function rate()
-    {
-        return $this->hasMany(Rate::class);
-    }
-
 
     /**
      * The attributes that are mass assignable.

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RateController;
 use App\Http\Controllers\UserController;
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('/', [UserController::class, 'goToHome'])->name('gallery');
 Route::get('/signup', [UserController::class, 'signup'])->name('gallery.signup');
 Route::post('/signup', [UserController::class, 'insertUser'])->name('gallery.insertUser');
 Route::get('/login', [UserController::class, 'login'])->name('gallery.login');
@@ -34,3 +36,14 @@ Route::get('/home', [PostController::class, 'home'])->name('gallery.home');
 Route::delete('/remove/{id}', [PostController::class, 'remove'])->name('gallery.remove');
 Route::get('/download/{id}', [PostController::class, 'download'])->name('gallery.download');
 Route::post('/rate/{id}', [RateController::class, 'evaluate'])->name('gallery.evaluate');
+Route::post('/comment/{id}', [CommentController::class, 'comment'])->name('gallery.comment');
+Route::delete('/delete/{id}', [CommentController::class, 'delete'])->name('gallery.deleteComment');
+Route::get('/editComment/{id}', [CommentController::class, 'editComment'])->name('gallery.editComment');
+Route::patch('/updateComment/{id}', [CommentController::class, 'updateComment'])->name('gallery.updateComment');
+Route::get('/search', [PostController::class, 'search'])->name('gallery.search');
+
+Route::get('/admin', [AdminController::class, 'admin'])->name('gallery.admin');
+Route::get('/admin/table/{table?}', [AdminController::class, 'tables'])->name('gallery.Tables');
+Route::delete('/deleteUser/{id}', [UserController::class, 'deleteUser'])->name('gallery.deleteUser');
+Route::get('/table/search/{table?}', [AdminController::class, 'tableSearch'])->name('gallery.tableSearch');
+Route::delete('/deleteRate/{id}', [RateController::class, 'deleteRate'])->name('gallery.deleteRate');

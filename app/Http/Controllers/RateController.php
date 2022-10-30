@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\Rate;
+use App\Models\RateAvg;
 use Illuminate\Http\Request;
 
 class RateController extends Controller
 {
+    // evaluate a post by a user
     public function evaluate(Request $request, $id)
     {
         $rate = Rate::where([['user_id', session('user')['id']], ['post_id', $id]])->exists();
@@ -24,6 +25,23 @@ class RateController extends Controller
             ]);
         }
 
+        $avg = Rate::where('post_id', $id)->avg('rate');
+
+        RateAvg::where('post_id', $id)->update([
+            'avg' => $avg,
+        ]);
+
+
         return redirect(route('gallery.post', $id));
+    }
+
+    // delete a rate by admin
+    public function deleteRate($id)
+    {
+        if (session()->has('admin')) {
+
+            Rate::destroy($id);
+            return redirect(route('gallery.Tables', 'rates'));
+        }
     }
 }

@@ -4,23 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
 
-
-    //
+    // show a signup page
     public function signup()
     {
         if (session()->has('user')) {
-            return view('home');
+            return redirect(route('gallery.home'));
+        } else if (session()->has('admin')) {
+            return redirect(route('gallery.admin'));
         } else {
             return view('signup');
         }
     }
 
-
+    // create a user's account
     public function insertUser(Request $request)
     {
 
@@ -44,15 +44,19 @@ class UserController extends Controller
         }
     }
 
+    // show login page
     public function login()
     {
         if (session()->has('user')) {
-            return view('home');
+            return redirect(route('gallery.home'));
+        } else if (session()->has('admin')) {
+            return redirect(route('gallery.admin'));
         } else {
             return view('login');
         }
     }
 
+    // login to user's account
     public function extractUser(Request $request)
     {
         $request->validate([
@@ -60,10 +64,18 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
+        $admin = 'osama@gmail.com';
+
         $is_user = User::where([['email', $request->email], ['password', sha1($request->password)]])->exists();
 
         if ($is_user) {
             $user = User::where([['email', $request->email], ['password', sha1($request->password)]])->first();
+
+            if ($user->email == $admin) {
+                $request->session()->put('admin', $user);
+                return redirect(route('gallery.admin'));
+            }
+
             $request->session()->put('user', $user);
             return redirect(route('gallery.home'));
         } else {
@@ -71,13 +83,35 @@ class UserController extends Controller
         }
     }
 
-
+    // user signout of his account
     public function signout()
     {
-        if (session()->has('user')) {
-            session()->pull('user');
-
+        if (session()->has('admin')) {
+            session()->pull('admin');
             return redirect(route('gallery.home'));
         }
+        if (session()->has('user')) {
+            session()->pull('user');
+            return redirect(route('gallery.home'));
+        }
+    }
+
+    // to move to the home(index) page
+    public function goToHome()
+    {
+        if (session()->has('admin')) {
+            return redirect(route('gallery.admin'));
+        } else {
+            return redirect(route('gallery.home'));
+        }
+    }
+
+    // to delete a user by admin
+    public function deleteUser($id)
+    {
+
+        User::destroy($id);
+
+        return redirect(route('gallery.Tables', 'users'));
     }
 }
