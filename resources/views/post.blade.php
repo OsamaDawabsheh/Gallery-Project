@@ -124,7 +124,13 @@
             @endif
 
 
+            @if ($comments->count() == 0)
+            <div class="fw-bold text-center text-light fs-5 p-5 ">لا يــوجــد تعليقات </div>
+            @endif
+
                 {{-- show the comments of the post  --}}
+
+
 
         <div>
 

@@ -55,6 +55,7 @@
             <a class="btn btn-success border border-dark border-3 rounded-pill " href="{{ route('gallery.newPost') }}"><i class="bi bi-plus-circle "> منشور جديد</i></a>
         </div>
 
+        @if ($posts->count() != 0)
         {{-- search --}}
        <div class="d-flex justify-content-center " >
               <form class=" " action="{{ route('gallery.search') }}" method="GET" enctype="multipart/form-data">
@@ -75,6 +76,7 @@
                 </div>
             </form>
         </div>
+        @endif
 
     </section>
 

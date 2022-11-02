@@ -2,7 +2,7 @@
 
 
 
-    // create post page
+   {{-- create post page --}}
 
 @if($errors->any())
 <div class="p-5 pb-0 m-auto text-center col-12 col-md-8 col-lg-6 col-xl-4">
