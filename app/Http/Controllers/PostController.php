@@ -8,9 +8,7 @@ use App\Models\Rate;
 use App\Models\RateAvg;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Symfony\Component\Console\Input\Input;
 
 class PostController extends Controller
 {
@@ -117,7 +115,9 @@ class PostController extends Controller
     // show post edit page
     public function edit($id)
     {
-        if (session()->has('user') && session('user')['id'] == $id || session()->has('admin')) {
+        $post = Post::where('id', $id)->first();
+
+        if (session()->has('user') && session('user')['id'] == $post->user_id || session()->has('admin')) {
             return view('update', [
                 'post' => Post::where('id', $id)->first()
             ]);

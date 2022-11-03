@@ -50,9 +50,9 @@
 @endif
 
 
-    show a chart for a number of posts in last five years
+    {{-- show a chart for a number of posts in last five years --}}
 
-<section class="py-5 bg-danger">
+<section class="py-5 bg-danger" >
 <div class="m-auto w-75" id="chartContainer" ></div>
 </section>
 
