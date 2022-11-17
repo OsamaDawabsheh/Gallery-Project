@@ -18,7 +18,7 @@
     <h6 class="mb-4">{{ $post->description}}</h6>
     <p class="mb-4"><i class="bi bi-geo-alt-fill text-danger"></i> {{ $post->position}}</p>
 
-    <p> تم الرفع من قبل : <a class="text-decoration-none text-primary" href="{{ route('gallery.user' , $post->user_id) }}"> {{ $post->user->name }}</a></p>
+    <p> تم الرفع من قبل : <a class="text-decoration-none text-primary" href="{{ route('gallery.user' , [$post->user_id,'الكل']) }}"> {{ $post->user->name }}</a></p>
 
 
     {{-- post's rate --}}

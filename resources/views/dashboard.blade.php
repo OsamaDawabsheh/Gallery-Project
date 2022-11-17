@@ -27,9 +27,9 @@
              @endif
 
                     <a  class="d-flex justify-content-center" href="{{ route('gallery.post', $topPost->post->id) }}"><img src="{{ $topPost->post->image_path }}" height="370" class="d-block w-auto m-auto" alt="..."></a>
-                    <div class="carousel-caption d-none d-md-block ">
-                        <h5 class="bg-dark p-2">{{ $topPost->post->title }}</h5>
-                        <p class="bg-dark p-2"> من قبل : <a class="text-decoration-none text-primary" href="{{ route('gallery.user',$topPost->post->user_id) }}">{{ $topPost->post->user->name }}</a></p>
+                    <div class="text-center text-light mt-3">
+                        <h5 class="p-2">{{ $topPost->post->title }}</h5>
+                        <p class="p-2"> من قبل : <a class="text-decoration-none text-primary" href="{{ route('gallery.user',$topPost->post->user_id) }}">{{ $topPost->post->user->name }}</a></p>
                     </div>
                 </div>
 
@@ -52,7 +52,7 @@
 
     {{-- show a chart for a number of posts in last five years --}}
 
-<section class="py-5 bg-danger" >
+<section class="py-5 bg-dark" >
 <div class="m-auto w-75" id="chartContainer" ></div>
 </section>
 
@@ -63,7 +63,7 @@
 
 
     {{-- show a table of columns that contain a basic information of posts with ability to serach  --}}
-  <section class="p-3 bg-danger ">
+  <section class="p-3 bg-dark ">
 
 
       @if ($posts->count() != 0)
@@ -131,7 +131,7 @@
 
 </section>
 
-<div class="d-flex justify-content-center align-items-center my-auto p-3 bg-danger">
+<div class="d-flex justify-content-center align-items-center my-auto p-3 bg-dark">
     {{ $posts->links() }}
 </div>
 

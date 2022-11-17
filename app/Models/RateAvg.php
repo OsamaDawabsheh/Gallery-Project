@@ -17,6 +17,5 @@ class RateAvg extends Model
     protected $fillable = [
         'avg',
         'post_id',
-        'state'
     ];
 }

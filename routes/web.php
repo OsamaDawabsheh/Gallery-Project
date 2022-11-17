@@ -5,7 +5,6 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RateController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', [UserController::class, 'goToHome'])->name('gallery');
 Route::get('/signup', [UserController::class, 'signup'])->name('gallery.signup');
 Route::post('/signup', [UserController::class, 'insertUser'])->name('gallery.insertUser');
@@ -30,7 +30,7 @@ Route::post('/insert', [PostController::class, 'insertPost'])->name('gallery.ins
 Route::get('/post/{id}', [PostController::class, 'post'])->name('gallery.post');
 Route::get('/edit/{id}', [PostController::class, 'edit'])->name('gallery.edit');
 Route::patch('/post/{id}', [PostController::class, 'update'])->name('gallery.update');
-Route::get('/user/{id}', [PostController::class, 'user'])->name('gallery.user');
+Route::get('/user/{id}/{state?}', [PostController::class, 'user'])->name('gallery.user');
 Route::get('/signout', [UserController::class, 'signout'])->name('gallery.signout');
 Route::get('/home', [PostController::class, 'home'])->name('gallery.home');
 Route::delete('/remove/{id}', [PostController::class, 'remove'])->name('gallery.remove');
@@ -47,3 +47,6 @@ Route::get('/admin/table/{table?}', [AdminController::class, 'tables'])->name('g
 Route::delete('/deleteUser/{id}', [UserController::class, 'deleteUser'])->name('gallery.deleteUser');
 Route::get('/table/search/{table?}', [AdminController::class, 'tableSearch'])->name('gallery.tableSearch');
 Route::delete('/deleteRate/{id}', [RateController::class, 'deleteRate'])->name('gallery.deleteRate');
+
+Route::get('/contact', [UserController::class, 'contact'])->name('gallery.contact');
+Route::post('/send', [UserController::class, 'send'])->name('gallery.send');

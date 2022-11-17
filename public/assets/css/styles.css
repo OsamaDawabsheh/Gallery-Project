@@ -8,7 +8,7 @@ body {
     background: rgba(200,200,200);
 }
 
-#description {
+#description , #message {
     resize: none;
     width: 100%;
 }
@@ -31,4 +31,59 @@ div .comment {
 
 .signupToLogin {
     text-decoration: none
+}
+
+.searchBy {
+    width: 8em;
+}
+
+.filter {
+    width: 8em;
+}
+
+
+.nav {
+    display: none !important;
+
+}
+
+.search {
+    display: none !important;
+}
+
+.searchExit {
+    font-size: 2em;
+}
+
+
+.list-inline-item a:hover {
+    background-color: rgba(30,20,60) !important;
+    border-radius: 40% !important;
+    -webkit-border-radius: 40% !important;
+    -moz-border-radius: 40% !important;
+    -ms-border-radius: 40% !important;
+    -o-border-radius: 40% !important;
+}
+
+body {
+    background-image: url('../images/website/BG.png');
+    background-size: initial;
+}
+
+
+h3 {
+    font-family: 'Marhey', cursive;
+}
+
+.submit {
+    font-family: 'Kufam', sans-serif;
+}
+
+nav ul li a {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: large;
+}
+
+.links {
+    width: 70%;
 }

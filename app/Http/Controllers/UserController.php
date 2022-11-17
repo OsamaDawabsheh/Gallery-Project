@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -38,7 +40,8 @@ class UserController extends Controller
             User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => sha1($request->password)
+                'password' => sha1($request->password),
+                'admin' => '0'
             ]);
             return redirect(route('gallery.signup'))->with('signupMsg', 'تم انشاء الحساب بنجاح');
         }
@@ -64,14 +67,13 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        $admin = 'osama@gmail.com';
 
         $is_user = User::where([['email', $request->email], ['password', sha1($request->password)]])->exists();
 
         if ($is_user) {
             $user = User::where([['email', $request->email], ['password', sha1($request->password)]])->first();
 
-            if ($user->email == $admin) {
+            if ($user->admin == 1) {
                 $request->session()->put('admin', $user);
                 return redirect(route('gallery.admin'));
             }
@@ -96,7 +98,7 @@ class UserController extends Controller
         }
     }
 
-    // to move to the home(index) page
+    // to move to the home page
     public function goToHome()
     {
         if (session()->has('admin')) {
@@ -113,5 +115,46 @@ class UserController extends Controller
         User::destroy($id);
 
         return redirect(route('gallery.Tables', 'users'));
+    }
+
+
+    // to show contact page
+    public function contact()
+    {
+        return view('contact');
+    }
+
+    // send the message
+    public function send(Request $request)
+    {
+
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required',
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message,
+        ];
+
+
+        session()->put('sendMsg', $data['message']);
+
+
+        Mail::send('template-email', $data, function ($message) use ($data) {
+            $message->from($data['email'], $data['name']);
+            $message->sender($data['email'], $data['name']);
+            $message->to('omad10200099@gmail.com', 'Osama Dawabsheh');
+            $message->replyTo($data['email'], $data['name']);
+            $message->subject('OD Gallery');
+        });
+
+
+
+        return redirect(route('gallery.contact'))->with('sendEmail', 'تم ارسال الرسالة بنجاح');
     }
 }

@@ -3,6 +3,31 @@
     {{-- show home page  --}}
 
 
+        {{-- search --}}
+       <div class="bg-dark search " id="search" >
+              <form class="row w-100 justify-content-center" action="{{ route('gallery.search') }}" method="GET" enctype="multipart/form-data">
+                <div class=" mb-1 mt-2 col-1 m-auto " >
+                     <i class="btn border-0 bgbi bi-x-circle fs-5 text-light" onclick="searchExit()"></i>
+                </div>
+                <div class="d-flex my-1 col-md-4 justify-content-center ">
+                <p class="mx-1 mb-2 fw-bold py-2 text-light SearchBy ">بحث باستخدام :</p>
+                <select name="filter" class="form-select bg-dark text-light border border-3 border-warning rounded-pill text-center filter " aria-label="Default select example">
+                <option value="title" selected>العنوان</option>
+                <option value="description">الوصف</option>
+                <option value="position">المكان</option>
+                <option value="name">المستخدم</option>
+                <option value="rate">التقييم</option>
+                <option value="created_at">التاريخ</option>
+                </select>
+                </div>
+                <div class="d-flex my-1 col-md-5 justify-content-center">
+                <input type="search" name="search" placeholder="بـحـث" class="mx-2 px-3 rounded-pill border border-3 border-warning bg-dark text-light" >
+                <button class="bg-dark text-light rounded-circle border border-3 border-warning py-2 px-3" type="submit"><i class="bi bi-search"></i></button>
+                </div>
+            </form>
+        </div>
+
+
 {{-- header slider contain top three posts of the higher rates --}}
 @if ($topPosts->count() != 0)
 
@@ -25,9 +50,9 @@
              @endif
 
                     <a  class="d-flex justify-content-center" href="{{ route('gallery.post', $topPost->post->id) }}"><img src="{{ $topPost->post->image_path }}" height="370" class="d-block w-auto m-auto" alt="..."></a>
-                    <div class="carousel-caption d-none d-md-block ">
-                        <h5 class="bg-dark p-2">{{ $topPost->post->title }}</h5>
-                        <p class="bg-dark p-2"> من قبل : <a class="text-decoration-none text-primary" href="{{ route('gallery.user',$topPost->post->user_id) }}">{{ $topPost->post->user->name }}</a></p>
+                    <div class="text-center text-light mt-3">
+                        <h5 class="p-2">{{ $topPost->post->title }}</h5>
+                        <p class="p-2"> من قبل : <a class="text-decoration-none text-primary" href="{{ route('gallery.user',$topPost->post->user_id) }}">{{ $topPost->post->user->name }}</a></p>
                     </div>
                 </div>
 
@@ -49,34 +74,13 @@
 
 
 
-    <section class="py-3 px-5 bg-info w-100 m-auto row">
+    <section class="py-3 px-5 bg-dark w-100 m-auto row">
         {{-- create new post --}}
-        <div class="text-center my-4">
+        <div class="text-center mt-4">
             <a class="btn btn-success border border-dark border-3 rounded-pill " href="{{ route('gallery.newPost') }}"><i class="bi bi-plus-circle "> منشور جديد</i></a>
         </div>
 
-        @if ($posts->count() != 0)
-        {{-- search --}}
-       <div class="d-flex justify-content-center " >
-              <form class=" " action="{{ route('gallery.search') }}" method="GET" enctype="multipart/form-data">
-                <div class="d-flex mb-3 ">
-                <p class="mx-1 mb-2 fw-bold py-2">البحث باستخدام :</p>
-                <select name="filter" class="form-select bg-dark text-light border border-3 border-warning rounded-pill text-center w-50" aria-label="Default select example">
-                <option value="title" selected>العنوان</option>
-                <option value="description">الوصف</option>
-                <option value="position">المكان</option>
-                <option value="name">المستخدم</option>
-                <option value="rate">التقييم</option>
-                <option value="created_at">التاريخ</option>
-                </select>
-                </div>
-                <div class="d-flex">
-                <input type="search" name="search" placeholder="بـحـث" class="mx-2 px-3 rounded-pill border border-3 border-warning bg-dark text-light" >
-                <button class="bg-dark text-light rounded-circle border border-3 border-warning py-2 px-3" type="submit"><i class="bi bi-search"></i></button>
-                </div>
-            </form>
-        </div>
-        @endif
+
 
     </section>
 
@@ -89,8 +93,8 @@
 
 
     {{-- showing posts --}}
-    <section class="py-3 bg-info">
-        <div class="container px-5 px-sm-4 px-lg-2 mt-5">
+    <section class="py-3 bg-dark">
+        <div class="container px-5 px-sm-4 px-lg-2 mt-3">
             <div class="row gx-3 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
 
         @if ($posts->count() != 0)
@@ -131,7 +135,7 @@
 </section>
 
     {{-- number of pages of posts --}}
-<div class="d-flex justify-content-center align-items-center my-auto p-3 bg-info ">
+<div class="d-flex justify-content-center align-items-center my-auto p-3 bg-dark ">
     {{ $posts->links() }}
 </div>
 

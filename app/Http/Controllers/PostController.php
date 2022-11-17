@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\File;
 class PostController extends Controller
 {
 
-    // show home(index) page
+    // show home page
     public function home()
     {
         $topPosts = RateAvg::with('post')->whereRelation('post', 'state', 'عام')->orderBy('avg', 'desc')->take(3)->get();
@@ -22,7 +22,9 @@ class PostController extends Controller
         if (session()->has('admin')) {
             return redirect(route('gallery.admin'));
         }
-        return view('index', [
+
+
+        return view('home', [
             'posts' => $posts,
             'topPosts' => $topPosts,
         ]);
@@ -161,11 +163,19 @@ class PostController extends Controller
     }
 
     // show an user's page
-    public function user($id)
+    public function user($id, $state)
     {
         if (session()->has('user') && session('user')['id'] == $id) {
-            $posts = POST::where('user_id', $id)->orderBy('id', 'desc')->paginate(20);
+            $owner = 1;
+            if ($state == "الكل") {
+                $posts = POST::where('user_id', $id)->orderBy('id', 'desc')->paginate(20);
+            } else if ($state == "عام") {
+                $posts = POST::where('user_id', $id)->where('state', 'عام')->orderBy('id', 'desc')->paginate(20);
+            } else {
+                $posts = POST::where('user_id', $id)->where('state', 'خاص')->orderBy('id', 'desc')->paginate(20);
+            }
         } else {
+            $owner = 0;
             $posts = POST::where([['user_id', $id], ['state', 'عام']])->orderBy('id', 'desc')->paginate(20);
         }
 
@@ -175,6 +185,7 @@ class PostController extends Controller
 
         return view('user', [
             'posts' => $posts,
+            'owner' => $owner
         ]);
     }
 
@@ -237,7 +248,7 @@ class PostController extends Controller
                     'year5' => $year5,
                 ]);
             }
-            return view('index', [
+            return view('home', [
                 'posts' => $posts,
                 'topPosts' => $topPosts,
             ]);
@@ -258,7 +269,7 @@ class PostController extends Controller
                     'year5' => $year5,
                 ]);
             }
-            return view('index', [
+            return view('home', [
                 'posts' => $posts,
                 'topPosts' => $topPosts,
             ]);
@@ -277,7 +288,7 @@ class PostController extends Controller
                 ]);
             }
             $posts = Post::with('user')->Where('state', 'عام')->orderBy('created_at', 'desc')->where($filter, 'LIKE',  '%' . $search . '%')->paginate(20);
-            return view('index', [
+            return view('home', [
                 'posts' => $posts,
                 'topPosts' => $topPosts,
             ]);

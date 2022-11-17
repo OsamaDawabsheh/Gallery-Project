@@ -2,8 +2,19 @@
 
     {{-- show user page with his posts  --}}
 
-<section class="py-5 bg-info">
-    <div class="container px-5 px-sm-4 px-lg-2 mt-5">
+@if ($owner && isset($posts[0]))
+    <div class="px-3 pt-5 d-flex justify-content-center bg-dark ">
+        <ul class="list-inline p-3 px-0 bg-success rounded-pill" >
+            <li class="list-inline-item"><a class="text-decoration-none text-light p-3 fw-bold border-start border-3 border-dark" href="{{ route('gallery.user',[session('user')['id'],"الكل"] ) }}">الـكـل</a></li>
+            <li class="list-inline-item"><a class="text-decoration-none text-light p-3 fw-bold" href="{{ route('gallery.user',[session('user')['id'],"عام"] ) }}">عـام</a></li>
+            <li class="list-inline-item"><a class="text-decoration-none text-light p-3 fw-bold" href="{{ route('gallery.user',[session('user')['id'],"خاص"] ) }}">خـاص</a></li>
+        </ul>
+    </div>
+@endif
+
+
+<section class="py-5 bg-dark">
+    <div class="container px-5 px-sm-4 px-lg-2 mt-3">
         <div class="row gx-3 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
 
 @foreach ( $posts as $post )
@@ -35,7 +46,7 @@
 </div>
 </section>
 
-<div class="d-flex justify-content-center align-items-center my-auto p-3 bg-info ">
+<div class="d-flex justify-content-center align-items-center my-auto p-3 bg-dark ">
         {{ $posts->links() }}
   </div>
 
